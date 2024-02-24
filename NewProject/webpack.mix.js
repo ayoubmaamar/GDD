@@ -1,36 +1,32 @@
 const mix = require('laravel-mix');
+require('mix-tailwindcss');
 
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
  |--------------------------------------------------------------------------
  |
- | Mix provides a clean, fluent API for defining some Webpack build steps
- | for your Laravel application. By default, we are compiling the Sass
- | file for the application as well as bundling up all the JS files.
+ | Laravel Mix provides a clean, fluent API for defining Webpack build steps
+ | for your Laravel application.
  |
  */
 
-// Compiler les fichiers JavaScript
+// Compiler les fichiers JavaScript et CSS avec Tailwind CSS
 mix.js('resources/js/app.js', 'public/js')
-   .react('resources/js/app.jsx', 'public/js') // Décommentez cette ligne pour React
-   .vue() // Décommentez cette ligne pour Vue.js
-   .sass('resources/sass/app.scss', 'public/css'); // Compiler SASS en CSS
+   .postCss('resources/css/app.css', 'public/css', [
+       require('tailwindcss'),
+   ]);
 
-// Optionnel: Ajouter la version des fichiers pour la mise en cache
+// Optionnel: Ajouter la version des fichiers pour la mise en cache en production
 if (mix.inProduction()) {
     mix.version();
 }
 
-// Optionnel: Personnaliser le processus de compilation Babel
-mix.babelConfig({
-    plugins: ['@babel/plugin-syntax-dynamic-import'],
-});
-
 // Optionnel: Copier des images ou d'autres fichiers statiques vers le répertoire public
 mix.copyDirectory('resources/images', 'public/images');
 
-// Optionnel: Créer des source maps pour faciliter le débogage
+// Optionnel: Créer des source maps pour faciliter le débogage en développement
 if (!mix.inProduction()) {
     mix.sourceMaps();
 }
+
