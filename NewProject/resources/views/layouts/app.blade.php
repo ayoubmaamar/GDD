@@ -1,29 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Application Laravel</title>
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <title>{{ config('app.name', 'Laravel') }}</title>
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
-    
-
 </head>
-<body>
-    <header>
-        <!-- Navigation bar here -->
-    </header>
+<body class="antialiased">
+    <div class="min-h-screen bg-gray-100">
+        @include('layouts.navigation')
+        
+        <!-- Page Content -->
+        <main>
+            {{ $slot }}
+        </main>
+    </div>
 
-    <main class="py-4">
-        @yield('content')
-    </main>
-
-    <footer>
-        <!-- Footer content here -->
+    <footer class="bg-gray-800 text-white text-center p-4 mt-8">
+        © {{ date('Y') }} {{ config('app.name', 'Laravel') }}. Tous droits réservés.
     </footer>
 
-    <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ mix('js/app.js') }}"></script>
 </body>
 </html>
-
