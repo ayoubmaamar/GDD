@@ -7,12 +7,24 @@ use Illuminate\Database\Eloquent\Model;
 
 class UserType extends Model
 {
-    protected $table = 'USER_TYPE'; 
-    protected $primaryKey = 'ID_USER_TYPE'; 
+    use HasFactory;
 
-    public $timestamps = false; // Désactiver les timestamps si votre table ne les utilise pas
+    // Assurez-vous que le nom de la table correspond à ce que vous avez dans la base de données
+    protected $table = 'user_type'; 
 
+    // Indique si le modèle doit gérer les timestamps
+    public $timestamps = false;
+
+    // Les attributs qui sont assignables en masse.
     protected $fillable = [
-        'USER_TYPE', // Les champs assignables en masse
+        'name',
+        'email',
+        'id_user_type',
+        // Ajoutez d'autres colonnes si nécessaire
     ];
+
+    // Définit la relation vers le modèle User
+    public function users() {
+        return $this->hasMany(User::class, 'id_user_type');
+    }
 }

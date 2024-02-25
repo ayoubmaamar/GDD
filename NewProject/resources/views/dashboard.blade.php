@@ -1,41 +1,57 @@
+{{-- dashboard.blade.php --}}
 <x-app-layout>
     <div class="py-6">
-        <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Students -->
-                <div class="relative bg-white p-6 rounded-lg shadow-lg overflow-hidden hover:shadow-2xl transition duration-300">
-                    <a href="{{ route('students.index') }}" class="flex flex-col items-center justify-center">
-                        <!-- Heroicon name: users -->
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M6 20h5v-2a3 3 0 00-5.356-1.857M16 6a3 3 0 11-6 0 3 3 0 016 0zM6 9a3 3 0 00-3 3v2a3 3 0 006 0v-2a3 3 0 00-3-3z" />
-                        </svg>
-                        <h2 class="mt-4 font-semibold text-xl text-gray-800 leading-tight">Étudiants</h2>
-                        <p class="text-gray-500">Gérer les étudiants</p>
-                    </a>
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+                <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
+                    <div class="mt-8 text-2xl">
+                        Bienvenue sur votre tableau de bord !
+                    </div>
+
+                    <div class="mt-6 text-gray-500">
+                        Veuillez choisir une des options suivantes :
+                    </div>
                 </div>
 
-                <!-- Languages -->
-                <div class="relative bg-white p-6 rounded-lg shadow-lg overflow-hidden hover:shadow-2xl transition duration-300">
-                    <a href="{{ route('languages.index') }}" class="flex flex-col items-center justify-center">
-                        <!-- Heroicon name: globe-alt -->
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 22c5.131 0 9.445-3.389 10.95-8H1.05c1.505 4.611 5.819 8 10.95 8zM2.343 10h19.314C20.555 5.67 16.63 2 12 2S3.445 5.67 2.343 10zM12 22v-2m0-4v-2m0-4V8m0-6v2m-6 6H2m16 0h2M6 6l-2 2m12-2l2 2m-2 12l2-2m-12 2l-2-2" />
-                        </svg>
-                        <h2 class="mt-4 font-semibold text-xl text-gray-800 leading-tight">Langues</h2>
-                        <p class="text-gray-500">Gérer les langues</p>
-                    </a>
-                </div>
+                {{-- Afficher des informations de débogage sur l'utilisateur --}}
 
-                <!-- Services -->
-                <div class="relative bg-white p-6 rounded-lg shadow-lg overflow-hidden hover:shadow-2xl transition duration-300">
-                    <a href="{{ route('services.index') }}" class="flex flex-col items-center justify-center">
-                        <!-- Heroicon name: cog -->
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-red-500" viewBox="0 0 20 20" fill="currentColor">
-                          <path fill-rule="evenodd" d="M11.3 1.046a1 1 0 00-2.6 0l-.289.5a1.993 1.993 0 01-1.272.854l-.562.09a1.993 1.993 0 01-2.03-.991L3.6 1.062a1 1 0 00-1.2 0l-.928.537a1.993 1.993 0 01-2.03.991l-.561-.09a1.993 1.993 0 01-1.273-.854l-.289-.5a1 1 0 00-1.2 0l-.289.5a1.993 1.993 0 01-1.272.854l-.562.09a1 1 0 000 1.908l.562.09a1.993 1.993 0 011.272.854l.289.5a1 1 0 001.2 0l.928-.537a1.993 1.993 0 012.03-.991l.562.09a1.993 1.993 0 011.272.854l.289.5a1 1 0 001.2 0l.289-.5a1.993 1.993 0 011.272-.854l.562-.09a1.993 1.993 0 012.03.991l.928.537a1 1 0 001.2 0l.289-.5a1.993 1.993 0 011.272-.854l.562-.09a1 1 0 000-1.908l-.562-.09a1.993 1.993 0 01-1.272-.854l-.289-.5zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
-                        </svg>
-                        <h2 class="mt-4 font-semibold text-xl text-gray-800 leading-tight">Services</h2>
-                        <p class="text-gray-500">Gérer les services</p>
-                    </a>
+                <div class="bg-gray-200 bg-opacity-25 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                    {{-- Accès pour l'administrateur --}}
+                    @if(auth()->user()->userType->USER_TYPE === 'admin')
+                    <div class="p-6">
+                        <div class="flex items-center">
+                            <div class="ml-4 text-lg text-gray-600 leading-7 font-semibold">Administration</div>
+                        </div>
+
+                        <div class="ml-12">
+                            <div class="mt-2 text-sm text-gray-500">
+                                <a href="{{ route('languages.index') }}" class="underline text-sm text-gray-600 hover:text-gray-900">Gérer les langues</a><br>
+                                <a href="{{ route('services.index') }}" class="underline text-sm text-gray-600 hover:text-gray-900">Gérer les services</a><br>
+                                <a href="#" class="underline text-sm text-gray-600 hover:text-gray-900">Gérer les niveaux scolaires</a><br>
+                                <a href="#" class="underline text-sm text-gray-600 hover:text-gray-900">Gérer les utilisateurs</a><br>
+                                {{-- Ajoutez plus de liens d'administration ici --}}
+                            </div>
+                        </div>
+                    </div>
+                    @endif
+
+                    {{-- Accès pour l'étudiant --}}
+                    @if(auth()->user()->userType->USER_TYPE === 'etudiant')
+                    <div class="p-6 border-t border-gray-200 md:border-t-0 md:border-l">
+                        <div class="flex items-center">
+                            <div class="ml-4 text-lg text-gray-600 leading-7 font-semibold">Espace Étudiant</div>
+                        </div>
+
+                        <div class="ml-12">
+                            <div class="mt-2 text-sm text-gray-500">
+                                Votre espace personnel pour suivre vos cours, etc.
+                                {{-- Ajoutez des liens spécifiques pour les étudiants ici --}}
+                            </div>
+                        </div>
+                    </div>
+                    @endif
+
+                    {{-- Ajoutez plus de sections ici pour d'autres rôles comme "tuteur" et "gestionnaire" selon vos besoins --}}
                 </div>
             </div>
         </div>
