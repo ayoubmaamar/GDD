@@ -28,7 +28,7 @@
                                 <a href="{{ route('languages.index') }}" class="underline text-sm text-gray-600 hover:text-gray-900">Gérer les langues</a><br>
                                 <a href="{{ route('services.index') }}" class="underline text-sm text-gray-600 hover:text-gray-900">Gérer les services</a><br>
                                 <a href="{{ route('school_levels.index') }}" class="underline text-sm text-gray-600 hover:text-gray-900">Gérer les niveaux scolaires</a><br>
-                                <a href="#" class="underline text-sm text-gray-600 hover:text-gray-900">Gérer les utilisateurs</a><br>
+                                <a href="{{ route('users.index') }}" class="underline text-sm text-gray-600 hover:text-gray-900">Gérer les utilisateurs</a><br>
                                 {{-- Ajoutez plus de liens d'administration ici --}}
                             </div>
                         </div>

@@ -5,69 +5,63 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\UserType;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Validation\Rules;
 
 class UserController extends Controller
 {
     public function index()
     {
-        $users = User::all();
+        $users = User::with('userType')->get();
         return view('users.index', compact('users'));
+    }
+
+    public function create()
+    {
+        $userTypes = UserType::all();
+        return view('users.create', compact('userTypes'));
     }
 
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8',
+            'id_google' => 'nullable|string|max:255',
+            'id_user_type' => 'required|integer|exists:user_type,ID_USER_TYPE',
         ]);
 
-        $etudiantType = UserType::where('type', 'etudiant')->first();
-        $etudiantTypeId = $etudiantType ? $etudiantType->ID_USER_TYPE : null;
+        $validatedData['password'] = bcrypt($validatedData['password']);
+        User::create($validatedData);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'id_user_type' => $etudiantTypeId,
-        ]);
-
-        event(new Registered($user));
-
-        Auth::login($user);
-
-        return redirect()->route('home');
+        return redirect()->route('users.index')->with('success', 'Utilisateur ajouté avec succès.');
     }
 
-    public function show(User $user)
+    public function edit(User $user)
     {
-        return view('users.show', compact('user'));
+        $userTypes = UserType::all();
+        return view('users.edit', compact('user', 'userTypes'));
     }
 
     public function update(Request $request, User $user)
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $user->id],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
+            'id_user_type' => 'required|integer|exists:user_type,ID_USER_TYPE',
         ]);
 
-        $user->update([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+        if ($request->filled('password')) {
+            $validatedData['password'] = bcrypt($request->password);
+        }
 
-        return redirect()->route('users.show', $user->id);
+        $user->update($validatedData);
+
+        return redirect()->route('users.index')->with('success', 'Utilisateur mis à jour avec succès.');
     }
 
     public function destroy(User $user)
     {
         $user->delete();
-        return redirect()->route('users.index');
+        return redirect()->route('users.index')->with('success', 'Utilisateur supprimé avec succès.');
     }
 }

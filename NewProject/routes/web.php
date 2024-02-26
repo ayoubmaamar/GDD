@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\SchoolLevelController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,6 +60,9 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('services', ServiceController::class);
 
     Route::resource('school_levels', SchoolLevelController::class);
+
+    Route::resource('users', UserController::class);
+
     // Vous pouvez ajouter d'autres groupes de middleware pour d'autres rôles comme "tuteur" et "gestionnaire" selon vos besoins
 });
 
