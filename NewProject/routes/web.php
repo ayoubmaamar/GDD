@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LanguageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 // Route de la page d'accueil
 Route::get('/', function () {
     return view('home');
-});
+})->name('home');
 
 // Route du dashboard avec vérification de l'authentification et de la vérification de l'email
 Route::get('/dashboard', function () {
@@ -33,8 +34,7 @@ Route::middleware(['auth'])->group(function () {
 
     // Exemple de route protégée par le rôle d'utilisateur "admin"
     Route::middleware(['checkrole:admin'])->group(function () {
-        // Placez ici les routes accessibles uniquement par les administrateurs
-        // Par exemple, la gestion des utilisateurs, des rôles, etc.
+        
     });
 
     // Exemple de route pour les utilisateurs avec le rôle "etudiant"
@@ -42,6 +42,16 @@ Route::middleware(['auth'])->group(function () {
         // Placez ici les routes accessibles uniquement par les étudiants
         // Par exemple, accéder à des cours, soumettre des devoirs, etc.
     });
+
+    
+    // Routes pour la gestion des langues
+    Route::get('/languages', [LanguageController::class, 'index'])->name('languages.index');
+    Route::get('/languages/create', [LanguageController::class, 'create'])->name('languages.create');
+    Route::post('/languages', [LanguageController::class, 'store'])->name('languages.store');
+    Route::get('/languages/{language}/edit', [LanguageController::class, 'edit'])->name('languages.edit');
+    Route::put('/languages/{language}', [LanguageController::class, 'update'])->name('languages.update');
+    Route::delete('/languages/{language}', [LanguageController::class, 'destroy'])->name('languages.destroy');
+    
 
     // Vous pouvez ajouter d'autres groupes de middleware pour d'autres rôles comme "tuteur" et "gestionnaire" selon vos besoins
 });
