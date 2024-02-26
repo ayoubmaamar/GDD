@@ -1,32 +1,56 @@
 <?php
 
+// App/Http/Controllers/ServiceController.php
 namespace App\Http\Controllers;
 
+use App\Models\Service;
 use Illuminate\Http\Request;
 
 class ServiceController extends Controller
 {
-    public function index() {
-        return Service::all();
+    public function index()
+    {
+        $services = Service::all();
+        return view('services.index', compact('services'));
     }
 
-    public function store(Request $request) {
-        return Service::create($request->all());
+    public function create()
+    {
+        return view('services.create');
     }
 
-    public function show($id) {
-        return Service::findOrFail($id);
+    public function store(Request $request)
+    {
+        $validatedData = $request->validate([
+            'SERVICE' => 'required|string|max:255',
+            'DESCRIPTION' => 'required|string',
+            'PRICE' => 'required|numeric',
+        ]);
+
+        Service::create($validatedData);
+        return redirect()->route('services.index')->with('success', 'Service créé avec succès.');
     }
 
-    public function update(Request $request, $id) {
-        $service = Service::findOrFail($id);
-        $service->update($request->all());
-        return $service;
+    public function edit(Service $service)
+    {
+        return view('services.edit', compact('service'));
     }
 
-    public function destroy($id) {
-        $service = Service::findOrFail($id);
+    public function update(Request $request, Service $service)
+    {
+        $validatedData = $request->validate([
+            'SERVICE' => 'required|string|max:255',
+            'DESCRIPTION' => 'required|string',
+            'PRICE' => 'required|numeric',
+        ]);
+
+        $service->update($validatedData);
+        return redirect()->route('services.index')->with('success', 'Service mis à jour avec succès.');
+    }
+
+    public function destroy(Service $service)
+    {
         $service->delete();
-        return response()->json(null, 204);
+        return redirect()->route('services.index')->with('success', 'Service supprimé avec succès.');
     }
 }

@@ -3,6 +3,8 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\SchoolLevelController;
+use App\Http\Controllers\ServiceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,7 +54,11 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/languages/{language}', [LanguageController::class, 'update'])->name('languages.update');
     Route::delete('/languages/{language}', [LanguageController::class, 'destroy'])->name('languages.destroy');
     
+    // Service
 
+    Route::resource('services', ServiceController::class);
+
+    Route::resource('school_levels', SchoolLevelController::class);
     // Vous pouvez ajouter d'autres groupes de middleware pour d'autres rôles comme "tuteur" et "gestionnaire" selon vos besoins
 });
 
