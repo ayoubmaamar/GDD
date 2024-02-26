@@ -7,6 +7,7 @@ use App\Http\Controllers\SchoolLevelController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ServicePackController;
+use App\Http\Controllers\StudentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -65,6 +66,11 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('users', UserController::class);
 
     Route::resource('service_packs', ServicePackController::class);
+
+    // Routes pour les étudiants
+    Route::resource('students', StudentController::class);
+    Route::get('/students/create', [StudentController::class, 'create'])->name('students.create');
+
 
     // Vous pouvez ajouter d'autres groupes de middleware pour d'autres rôles comme "tuteur" et "gestionnaire" selon vos besoins
 });

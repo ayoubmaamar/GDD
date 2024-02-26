@@ -13,6 +13,11 @@ class SchoolLevel extends Model
     // Désactive les timestamps si votre table ne les utilise pas
     public $timestamps = false;
 
+    public function students()
+    {
+        return $this->hasMany(Student::class, 'ID_SCHOOL_LEVEL');
+    }
+
     protected $fillable = [
         'SCHOOL_LEVEL', // Les champs que vous autorisez à être assignés massivement
     ];

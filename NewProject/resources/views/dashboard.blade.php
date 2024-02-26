@@ -58,6 +58,13 @@
                         <div class="flex items-center">
                             <div class="ml-4 text-lg text-gray-600 leading-7 font-semibold">Gestion des utilisateurs</div>
                         </div>
+                        <div class="ml-12">
+                            <div class="mt-2 text-sm text-gray-500">
+                                <a href="{{ route('students.index') }}" class="underline text-sm text-gray-600 hover:text-gray-900">
+                                    <i class="fas fa-user-graduate mr-2"></i>Étudiants
+                                </a><br>
+                                <!-- Ajoutez d'autres liens liés aux étudiants si nécessaire -->
+                            </div>
 
                         <div class="ml-12">
                             <div class="mt-2 text-sm text-gray-500">

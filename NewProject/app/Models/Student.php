@@ -12,7 +12,8 @@ class Student extends Model
     
     protected $fillable = [
         'FIRST_NAME_STUDENT', 'LAST_NAME_STUDENT', 'LAST_TRAINNING',
-        'DATE_OF_BIRTH', 'ADDRESS_STUDENT', 'PHONE_STUDENT', 'ID_SCHOOL_LEVEL'
+        'DATE_OF_BIRTH', 'ADDRESS_STUDENT', 'PHONE_STUDENT', 'ID_SCHOOL_LEVEL',
+        'email_student', 'passport_number',
     ];
 
     public function documents()
@@ -24,4 +25,10 @@ class Student extends Model
     {
         return $this->belongsToMany(Language::class, 'STUDENT_LANGUAGE', 'ID_STUDENT', 'ID_LANGUAGE');
     }
+    
+    public function schoolLevel()
+    {
+        return $this->belongsTo(SchoolLevel::class, 'ID_SCHOOL_LEVEL');
+    }
+
 }

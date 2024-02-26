@@ -2,68 +2,110 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Student;
+use App\Models\SchoolLevel;
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
+    /**
+     * Display a listing of the students.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
         $students = Student::all();
-        return response()->json($students);
+        
+        return view('students.index', compact('students'));
     }
 
+    /**
+     * Show the form for creating a new student.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        $schoolLevels = SchoolLevel::all();
+        return view('students.create', compact('schoolLevels'));
+        
+    }
+
+    /**
+     * Store a newly created student in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request)
     {
-        $student = Student::create($request->all());
-        return response()->json($student, 201);
+        $request->validate([
+            'FIRST_NAME_STUDENT' => 'required',
+            'LAST_NAME_STUDENT' => 'required',
+            // Ajoutez ici les règles de validation pour les autres champs.
+        ]);
+
+        Student::create($request->all());
+        return redirect()->route('students.index')->with('success', 'Student created successfully.');
     }
 
+    /**
+     * Display the specified student.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function show($id)
     {
-        $student = Student::find($id);
-        if (!$student) {
-            return response()->json(['message' => 'Student not found'], 404);
-        }
-        return response()->json($student);
+        $student = Student::with('schoolLevel')->findOrFail($id);
+        return view('students.show', compact('student'));
     }
 
+    /**
+     * Show the form for editing the specified student.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $student = Student::findOrFail($id);
+        $schoolLevels = SchoolLevel::all();
+        // Passez ici d'autres données nécessaires pour les champs déroulants ou autres.
+        return view('students.edit', compact('student', 'schoolLevels'));
+    }
+
+    /**
+     * Update the specified student in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function update(Request $request, $id)
     {
-        $student = Student::find($id);
-        if (!$student) {
-            return response()->json(['message' => 'Student not found'], 404);
-        }
+        $request->validate([
+            'FIRST_NAME_STUDENT' => 'required',
+            'LAST_NAME_STUDENT' => 'required',
+            // Ajoutez ici les règles de validation pour les autres champs.
+        ]);
+
+        $student = Student::findOrFail($id);
         $student->update($request->all());
-        return response()->json($student);
+        return redirect()->route('students.index')->with('success', 'Student updated successfully.');
     }
 
+    /**
+     * Remove the specified student from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function destroy($id)
     {
-        $student = Student::find($id);
-        if (!$student) {
-            return response()->json(['message' => 'Student not found'], 404);
-        }
+        $student = Student::findOrFail($id);
         $student->delete();
-        return response()->json(['message' => 'Student deleted']);
+        return redirect()->route('students.index')->with('success', 'Student deleted successfully.');
     }
-
-
-    public function addLanguage(Request $request, $studentId)
-    {
-        $student = Student::findOrFail($studentId);
-        $languageId = $request->input('language_id');
-        $student->languages()->attach($languageId);
-
-        return response()->json(['message' => 'Language added to student successfully']);
-    }
-
-    public function removeLanguage($studentId, $languageId)
-    {
-        $student = Student::findOrFail($studentId);
-        $student->languages()->detach($languageId);
-
-        return response()->json(['message' => 'Language removed from student successfully']);
-    }
-
-
 }
