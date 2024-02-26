@@ -14,44 +14,59 @@
                 </div>
 
                 {{-- Afficher des informations de débogage sur l'utilisateur --}}
-
                 <div class="bg-gray-200 bg-opacity-25 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-                    {{-- Accès pour l'administrateur --}}
+                    {{-- Paramétrage --}}
                     @if(auth()->user()->userType->USER_TYPE === 'admin')
                     <div class="p-6">
                         <div class="flex items-center">
-                            <div class="ml-4 text-lg text-gray-600 leading-7 font-semibold">Administration</div>
+                            <div class="ml-4 text-lg text-gray-600 leading-7 font-semibold">Paramétrage</div>
                         </div>
 
                         <div class="ml-12">
                             <div class="mt-2 text-sm text-gray-500">
-                                <a href="{{ route('languages.index') }}" class="underline text-sm text-gray-600 hover:text-gray-900">Gérer les langues</a><br>
-                                <a href="{{ route('services.index') }}" class="underline text-sm text-gray-600 hover:text-gray-900">Gérer les services</a><br>
-                                <a href="{{ route('school_levels.index') }}" class="underline text-sm text-gray-600 hover:text-gray-900">Gérer les niveaux scolaires</a><br>
-                                <a href="{{ route('users.index') }}" class="underline text-sm text-gray-600 hover:text-gray-900">Gérer les utilisateurs</a><br>
-                                {{-- Ajoutez plus de liens d'administration ici --}}
+                                <a href="{{ route('languages.index') }}" class="underline text-sm text-gray-600 hover:text-gray-900">
+                                    <i class="fas fa-language mr-2"></i>Langue
+                                </a><br>
+                                <a href="{{ route('school_levels.index') }}" class="underline text-sm text-gray-600 hover:text-gray-900">
+                                    <i class="fas fa-graduation-cap mr-2"></i>Niveau Scolaire
+                                </a><br>
                             </div>
                         </div>
                     </div>
                     @endif
 
-                    {{-- Accès pour l'étudiant --}}
-                    @if(auth()->user()->userType->USER_TYPE === 'etudiant')
+                    {{-- Gestion des services --}}
                     <div class="p-6 border-t border-gray-200 md:border-t-0 md:border-l">
                         <div class="flex items-center">
-                            <div class="ml-4 text-lg text-gray-600 leading-7 font-semibold">Espace Étudiant</div>
+                            <div class="ml-4 text-lg text-gray-600 leading-7 font-semibold">Gestion des services</div>
                         </div>
 
                         <div class="ml-12">
                             <div class="mt-2 text-sm text-gray-500">
-                                Votre espace personnel pour suivre vos cours, etc.
-                                {{-- Ajoutez des liens spécifiques pour les étudiants ici --}}
+                                <a href="{{ route('services.index') }}" class="underline text-sm text-gray-600 hover:text-gray-900">
+                                    <i class="fas fa-cogs mr-2"></i>Service
+                                </a><br>
+                                <a href="{{ route('service_packs.index') }}" class="underline text-sm text-gray-600 hover:text-gray-900">
+                                    <i class="fas fa-box mr-2"></i>Pack Service
+                                </a><br>
                             </div>
                         </div>
                     </div>
-                    @endif
 
-                    {{-- Ajoutez plus de sections ici pour d'autres rôles comme "tuteur" et "gestionnaire" selon vos besoins --}}
+                    {{-- Gestion des utilisateurs --}}
+                    <div class="p-6 border-t border-gray-200 md:border-t-0 md:border-l">
+                        <div class="flex items-center">
+                            <div class="ml-4 text-lg text-gray-600 leading-7 font-semibold">Gestion des utilisateurs</div>
+                        </div>
+
+                        <div class="ml-12">
+                            <div class="mt-2 text-sm text-gray-500">
+                                <a href="{{ route('users.index') }}" class="underline text-sm text-gray-600 hover:text-gray-900">
+                                    <i class="fas fa-users mr-2"></i>Utilisateur
+                                </a><br>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

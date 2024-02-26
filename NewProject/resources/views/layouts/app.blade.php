@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ config('app.name', 'Laravel') }}</title>
     <link href="{{ mix('resources/css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-7z4D5F4yUGF+qTz4hrB/49tgR4y2osNkM8tmEgAdky1ElGW3af2uDGy5YI5NBqJr4MrLW5oWQcPjy/EYkmQfVQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 </head>
 <body class="antialiased">

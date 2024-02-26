@@ -2,13 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ServicePack;
 use Illuminate\Http\Request;
 
 class ServicePackController extends Controller
 {
     public function index()
     {
-        return ServicePack::all();
+        $servicePacks = ServicePack::all();
+        return view('service_packs.index', compact('servicePacks'));
+    }
+
+    public function create()
+    {
+        return view('service_packs.create');
     }
 
     public function store(Request $request)
@@ -19,14 +26,20 @@ class ServicePackController extends Controller
             'PRICE' => 'required|numeric'
         ]);
 
-        $servicePack = ServicePack::create($validatedData);
-        return response()->json($servicePack, 201);
+        ServicePack::create($validatedData);
+        return redirect()->route('service_packs.index')->with('success', 'Pack de services créé avec succès.');
     }
 
     public function show($id)
     {
         $servicePack = ServicePack::findOrFail($id);
-        return response()->json($servicePack);
+        return view('service_packs.show', compact('servicePack'));
+    }
+
+    public function edit($id)
+    {
+        $servicePack = ServicePack::findOrFail($id);
+        return view('service_packs.edit', compact('servicePack'));
     }
 
     public function update(Request $request, $id)
@@ -40,12 +53,12 @@ class ServicePackController extends Controller
         ]);
 
         $servicePack->update($validatedData);
-        return response()->json($servicePack);
+        return redirect()->route('service_packs.index')->with('success', 'Pack de services mis à jour avec succès.');
     }
 
     public function destroy($id)
     {
         ServicePack::destroy($id);
-        return response()->json(null, 204);
+        return redirect()->route('service_packs.index')->with('success', 'Pack de services supprimé avec succès.');
     }
 }
