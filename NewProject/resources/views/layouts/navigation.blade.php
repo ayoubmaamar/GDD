@@ -3,7 +3,7 @@
         <div class="flex items-center justify-between h-16">
             <div class="flex items-center">
                 <div class="flex-shrink-0">
-                    <a href="{{ url('/') }}" class="text-white font-bold">Laravel</a>
+                    <a href="{{ url('/') }}" class="text-white font-bold">StudyLink</a>
                 </div>
             </div>
             <div class="block">

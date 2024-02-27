@@ -3,8 +3,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
-                    <h2 class="text-2xl font-semibold">Bienvenue sur votre tableau de bord !</h2>
-                    <p class="mt-4 text-gray-600">Veuillez choisir une des options suivantes :</p>
+                    <h2 class="text-2xl font-semibold">Tableau de bord !</h2>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
