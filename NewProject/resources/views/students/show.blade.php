@@ -10,6 +10,10 @@
                             <p>{{ $student->passport_number }}</p>
                         </div>
                         <div>
+                            <strong></strong>
+                            <p></p>
+                        </div>
+                        <div>
                             <strong>Nom:</strong>
                             <p>{{ $student->LAST_NAME_STUDENT }}</p>
                         </div>
