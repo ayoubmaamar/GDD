@@ -1,78 +1,50 @@
-{{-- dashboard.blade.php --}}
 <x-app-layout>
     <div class="py-6">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
-                    <div class="mt-8 text-2xl">
-                        Bienvenue sur votre tableau de bord !
-                    </div>
-
-                    <div class="mt-6 text-gray-500">
-                        Veuillez choisir une des options suivantes :
-                    </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 bg-white border-b border-gray-200">
+                    <h2 class="text-2xl font-semibold">Bienvenue sur votre tableau de bord !</h2>
+                    <p class="mt-4 text-gray-600">Veuillez choisir une des options suivantes :</p>
                 </div>
 
-                {{-- Afficher des informations de débogage sur l'utilisateur --}}
-                <div class="bg-gray-200 bg-opacity-25 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
                     {{-- Paramétrage --}}
-                    @if(auth()->user()->userType->USER_TYPE === 'admin')
-                    <div class="p-6">
-                        <div class="flex items-center">
-                            <div class="ml-4 text-lg text-gray-600 leading-7 font-semibold">Paramétrage</div>
+                    <div class="rounded-lg shadow-lg p-6 bg-blue-100 hover:bg-blue-200 cursor-pointer">
+                        <h3 class="text-lg font-semibold text-gray-700 mb-4">Paramétrage</h3>
+                        <div class="text-gray-600">
+                            <ul class="list-disc ml-4">
+                                <li><a href="{{ route('languages.index') }}" class="underline hover:text-blue-600">Gérer les langues</a></li>
+                                <li><a href="{{ route('school_levels.index') }}" class="underline hover:text-blue-600">Gérer les niveaux scolaires</a></li>
+                                <!-- Ajouter d'autres options de paramétrage ici -->
+                            </ul>
                         </div>
-
-                        <div class="ml-12">
-                            <div class="mt-2 text-sm text-gray-500">
-                                <a href="{{ route('languages.index') }}" class="underline text-sm text-gray-600 hover:text-gray-900">
-                                    <i class="fas fa-language mr-2"></i>Langue
-                                </a><br>
-                                <a href="{{ route('school_levels.index') }}" class="underline text-sm text-gray-600 hover:text-gray-900">
-                                    <i class="fas fa-graduation-cap mr-2"></i>Niveau Scolaire
-                                </a><br>
-                            </div>
-                        </div>
+                        <i class="fas fa-cog fa-2x text-gray-700 absolute top-6 right-6"></i>
                     </div>
-                    @endif
 
                     {{-- Gestion des services --}}
-                    <div class="p-6 border-t border-gray-200 md:border-t-0 md:border-l">
-                        <div class="flex items-center">
-                            <div class="ml-4 text-lg text-gray-600 leading-7 font-semibold">Gestion des services</div>
+                    <div class="rounded-lg shadow-lg p-6 bg-green-100 hover:bg-green-200 cursor-pointer">
+                        <h3 class="text-lg font-semibold text-gray-700 mb-4">Gestion des services</h3>
+                        <div class="text-gray-600">
+                            <ul class="list-disc ml-4">
+                                <li><a href="{{ route('services.index') }}" class="underline hover:text-green-600">Voir les services</a></li>
+                                <li><a href="{{ route('service_packs.index') }}" class="underline hover:text-green-600">Voir les packs de services</a></li>
+                                <!-- Ajouter d'autres options de gestion des services ici -->
+                            </ul>
                         </div>
-
-                        <div class="ml-12">
-                            <div class="mt-2 text-sm text-gray-500">
-                                <a href="{{ route('services.index') }}" class="underline text-sm text-gray-600 hover:text-gray-900">
-                                    <i class="fas fa-cogs mr-2"></i>Service
-                                </a><br>
-                                <a href="{{ route('service_packs.index') }}" class="underline text-sm text-gray-600 hover:text-gray-900">
-                                    <i class="fas fa-box mr-2"></i>Pack Service
-                                </a><br>
-                            </div>
-                        </div>
+                        <i class="fas fa-tools fa-2x text-gray-700 absolute top-6 right-6"></i>
                     </div>
 
                     {{-- Gestion des utilisateurs --}}
-                    <div class="p-6 border-t border-gray-200 md:border-t-0 md:border-l">
-                        <div class="flex items-center">
-                            <div class="ml-4 text-lg text-gray-600 leading-7 font-semibold">Gestion des utilisateurs</div>
+                    <div class="rounded-lg shadow-lg p-6 bg-purple-100 hover:bg-purple-200 cursor-pointer">
+                        <h3 class="text-lg font-semibold text-gray-700 mb-4">Gestion des utilisateurs</h3>
+                        <div class="text-gray-600">
+                            <ul class="list-disc ml-4">
+                                <li><a href="{{ route('students.index') }}" class="underline hover:text-purple-600">Gérer les étudiants</a></li>
+                                <li><a href="{{ route('users.index') }}" class="underline hover:text-purple-600">Gérer les utilisateurs</a></li>
+                                <!-- Ajouter d'autres options de gestion des utilisateurs ici -->
+                            </ul>
                         </div>
-                        <div class="ml-12">
-                            <div class="mt-2 text-sm text-gray-500">
-                                <a href="{{ route('students.index') }}" class="underline text-sm text-gray-600 hover:text-gray-900">
-                                    <i class="fas fa-user-graduate mr-2"></i>Étudiants
-                                </a><br>
-                                <!-- Ajoutez d'autres liens liés aux étudiants si nécessaire -->
-                            </div>
-
-                        <div class="ml-12">
-                            <div class="mt-2 text-sm text-gray-500">
-                                <a href="{{ route('users.index') }}" class="underline text-sm text-gray-600 hover:text-gray-900">
-                                    <i class="fas fa-users mr-2"></i>Utilisateur
-                                </a><br>
-                            </div>
-                        </div>
+                        <i class="fas fa-users fa-2x text-gray-700 absolute top-6 right-6"></i>
                     </div>
                 </div>
             </div>

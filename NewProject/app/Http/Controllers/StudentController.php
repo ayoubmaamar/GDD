@@ -108,4 +108,12 @@ class StudentController extends Controller
         $student->delete();
         return redirect()->route('students.index')->with('success', 'Student deleted successfully.');
     }
+
+    public function showDocuments($id)
+    {
+        $student = Student::findOrFail($id);
+        $documents = $student->documents; // Utilise la relation définie dans le modèle
+
+        return view('students.documents', compact('student', 'documents'));
+    }
 }

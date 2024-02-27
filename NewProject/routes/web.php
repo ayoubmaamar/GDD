@@ -8,6 +8,7 @@ use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ServicePackController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\DocumentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,6 +72,13 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('students', StudentController::class);
     Route::get('/students/create', [StudentController::class, 'create'])->name('students.create');
 
+    Route::get('/students/{id}/documents', [StudentController::class, 'showDocuments'])->name('students.documents');
+
+    // Afficher le formulaire pour ajouter un document
+    Route::get('/students/{id}/documents/create', [DocumentController::class, 'create'])->name('documents.create');
+    
+    // Soumettre le nouveau document
+    Route::post('/documents/store', [DocumentController::class, 'store'])->name('documents.store');
 
     // Vous pouvez ajouter d'autres groupes de middleware pour d'autres rôles comme "tuteur" et "gestionnaire" selon vos besoins
 });

@@ -18,7 +18,7 @@ class Student extends Model
 
     public function documents()
     {
-        return $this->hasMany(DocumentList::class, 'ID_STUDENT');
+        return $this->hasMany(Document::class, 'ID_STUDENT');
     }
 
     public function languages()

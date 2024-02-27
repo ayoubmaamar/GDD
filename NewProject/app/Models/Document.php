@@ -2,13 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class DocumentList extends Model
+class Document extends Model
 {
-    protected $table = 'DOCUMENT_LIST'; // Nom de la table
-
+    protected $table = 'DOCUMENT_LIST';
     protected $fillable = [
         'TITLE_DOCUMENT', 'PATH_FILE', 'ID_STUDENT'
     ];
